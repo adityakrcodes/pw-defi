@@ -1,6 +1,6 @@
 import React from "react";
 
-const Dashboard = () => {
+const DashboardWidget = () => {
   return (
     <div id="dashboard" className="min-h-screen bg-neutral-900 text-white p-6">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
@@ -240,4 +240,4 @@ const Dashboard = () => {
     </div>
   );
 };
-export default Dashboard;
+export default DashboardWidget;
