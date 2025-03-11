@@ -1,5 +1,5 @@
 "use client";
-
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { Menu, Wallet } from "lucide-react";
 import Sidebar from "@/app/components/dashboard/Sidebar";
@@ -14,6 +14,17 @@ import Report from "@/app/components/dashboard/Report";
 import WalletMoney from "@/app/components/dashboard/WalletMoney";
 
 export default function Dashboard() {
+        useEffect(() => {
+			setTimeout(() => {
+				if (window.solana?.isConnected) {
+                    console.log("Wallet connected");
+				} else {
+					console.log("Wallet not connected");
+                    window.location.href = "/";
+				}
+			}
+            , 1000);
+        }, []);
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const [activePage, setActivePage] = useState("Dashboard");
 

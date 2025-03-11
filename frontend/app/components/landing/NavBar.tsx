@@ -12,15 +12,13 @@ declare global {
 
 const NavBar: React.FC = () => {
 	useEffect(() => {
-		// Redirect to dashboard if user is already connected
-        // wait for 2 seconds before performing the check
         setTimeout(() => {
             if (window.solana?.isConnected) {
                 window.location.href = "/dashboard";
             }
         }
         , 1000);
-    }, []); // Empty dependency array means this runs once when component mounts
+    }, []);
 
 	return (
 		<nav className="bg-blue-500 p-4">
