@@ -1,4 +1,5 @@
 import { Menu, Bell, User } from "lucide-react";
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import React from "react";
 interface HeaderProps {
   activePage: string;
@@ -11,7 +12,13 @@ const Header: React.FC<HeaderProps> = ({ activePage }) => {
         <h2 className="text-xl font-semibold ml-12 lg:ml-0">{activePage}</h2>
         <div className="flex items-center space-x-4">
           <button className="p-2 text-neutral-400 hover:text-white">
-            <User className="w-6 h-6" />
+            <WalletMultiButton
+                style={{
+                    backgroundColor: "transparent",
+                    color: "white",
+                    borderRadius: "5px",
+                }}
+            />
           </button>
         </div>
       </div>

@@ -61,7 +61,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isMenuOpen, setActivePage, activePage
         </div>
 
         {/* User Profile Section */}
-        <div className="p-6 border-t border-neutral-700/30">
+        {/* <div className="p-6 border-t border-neutral-700/30">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center">
               <User className="w-6 h-6" />
@@ -77,7 +77,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isMenuOpen, setActivePage, activePage
               </button>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </nav>
   );
