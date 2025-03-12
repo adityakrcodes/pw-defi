@@ -1,17 +1,30 @@
+"use client";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { Menu, Wallet } from "lucide-react";
-import Sidebar from "../components/Sidebar";
-import Header from "../components/Header";
-import Auth from "../components/Auth";
-import DashboardWidget from "../components/DashboardWidget";
-import Defi from "../components/Defi";
-import Stake from "../components/Stake";
-import Profile from "../components/Profile";
-import AdminDashboard from "../components/AdminDashboard";
-import Report from "../components/Report";
-import WalletMoney from "../components/WalletMoney";
+import Sidebar from "@/app/components/dashboard/Sidebar";
+import Header from "@/app/components/dashboard/Header";
+import Auth from "@/app/components/dashboard/Auth";
+import DashboardWidget from "@/app/components/dashboard/DashboardWidget";
+import Defi from "@/app/components/dashboard/Defi";
+import Stake from "@/app/components/dashboard/Stake";
+import Profile from "@/app/components/dashboard/Profile";
+import AdminDashboard from "@/app/components/dashboard/AdminDashboard";
+import Report from "@/app/components/dashboard/Report";
+import WalletMoney from "@/app/components/dashboard/WalletMoney";
 
 export default function Dashboard() {
+        useEffect(() => {
+			setTimeout(() => {
+				if (window.solana?.isConnected) {
+                    console.log("Wallet connected");
+				} else {
+					console.log("Wallet not connected");
+                    window.location.href = "/";
+				}
+			}
+            , 1000);
+        }, []);
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const [activePage, setActivePage] = useState("Dashboard");
 
