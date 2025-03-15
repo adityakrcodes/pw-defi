@@ -1,6 +1,6 @@
 import React from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
-import { Connection } from "@solana/web3.js";
+import { Connection, Transaction, SystemProgram, LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { QRCodeSVG } from 'qrcode.react';
@@ -149,13 +149,60 @@ const DashboardWidget = () => {
                                         <form className="space-y-4">
                                             <div>
                                                 <label className="block text-sm text-neutral-400 mb-1">Recipient Address</label>
-                                                <input type="text" className="w-full bg-neutral-700 rounded p-2" />
+                                                <input 
+                                                    type="text" 
+                                                    name="recipient"
+                                                    className="w-full bg-neutral-700 rounded p-2" 
+                                                />
                                             </div>
                                             <div>
                                                 <label className="block text-sm text-neutral-400 mb-1">Amount (SOL)</label>
-                                                <input type="number" className="w-full bg-neutral-700 rounded p-2" />
+                                                <input 
+                                                    type="number" 
+                                                    name="amount"
+                                                    className="w-full bg-neutral-700 rounded p-2" 
+                                                />
                                             </div>
-                                            <button className="w-full bg-blue-600 hover:bg-blue-700 p-2 rounded">Send</button>
+                                            <button 
+                                                className="w-full bg-blue-600 hover:bg-blue-700 p-2 rounded"
+                                                onClick={async (e) => {
+                                                    e.preventDefault();
+                                                    if (!wallet.publicKey || !wallet.sendTransaction) {
+                                                        toast.error('Wallet not connected!');
+                                                        return;
+                                                    }
+                                                    try {
+                                                        const recipient = e.currentTarget.form?.['recipient'].value;
+                                                        const amount = parseFloat(e.currentTarget.form?.['amount'].value);
+														
+														const transaction = new Transaction().add(
+															SystemProgram.transfer({
+																fromPubkey: wallet.publicKey!,
+																toPubkey: new PublicKey(recipient),
+																lamports: amount * LAMPORTS_PER_SOL
+															})
+														);
+														
+														const signature = await wallet.sendTransaction(
+															transaction,
+															connection
+														);
+														
+														const latestBlockhash = await connection.getLatestBlockhash();
+														await connection.confirmTransaction({
+															signature,
+															...latestBlockhash
+														});
+														
+														toast.success('Transaction sent successfully!');
+														handleCloseModal();
+													} catch (error: any) {
+														toast.error('Transaction failed: ' + (error.message || 'Unknown error'));
+													}
+                                                }}
+                                            >
+                                                Send
+                                            </button>
                                         </form>
                                     )}
 
