@@ -2,6 +2,7 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import React from "react";
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { WalletDisconnectButton, WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 
 const WalletMoney = () => {
 	const wallet = useWallet();
@@ -55,9 +56,24 @@ const WalletMoney = () => {
                             </button>								
 						</div>
 					</div>
-					<button className="px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors duration-300">
-						Disconnect Wallet
-					</button>
+
+					<div className="px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors duration-300 flex justify-center items-center">
+                        {wallet.publicKey ? 
+                        <WalletDisconnectButton 
+                            style={{
+                                backgroundColor: "transparent",
+                                color: "white",
+                                borderRadius: "5px",
+                            }}
+                        /> :
+                        <WalletMultiButton
+                            style={{
+                                backgroundColor: "transparent",
+                                color: "white",
+                                borderRadius: "5px",
+                            }}
+                        />}
+					</div>
 				</div>
 			</div>
 
