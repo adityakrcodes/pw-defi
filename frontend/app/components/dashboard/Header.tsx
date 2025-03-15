@@ -11,7 +11,6 @@ const Header: React.FC<HeaderProps> = ({ activePage }) => {
       <div className="flex items-center justify-between px-6 py-4">
         <h2 className="text-xl font-semibold ml-12 lg:ml-0">{activePage}</h2>
         <div className="flex items-center space-x-4">
-          <button className="p-2 text-neutral-400 hover:text-white">
             <WalletMultiButton
                 style={{
                     backgroundColor: "transparent",
@@ -19,7 +18,6 @@ const Header: React.FC<HeaderProps> = ({ activePage }) => {
                     borderRadius: "5px",
                 }}
             />
-          </button>
         </div>
       </div>
     </header>
