@@ -1,7 +1,9 @@
 import React from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { Connection } from "@solana/web3.js";
-
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import { QRCodeSVG } from 'qrcode.react';
 const DashboardWidget = () => {
 	const wallet = useWallet();
     const connection = new Connection("https://api.devnet.solana.com");
@@ -25,11 +27,25 @@ const DashboardWidget = () => {
             });
     }, []);
 
+    const [isModalOpen, setIsModalOpen] = React.useState(false);
+    const [modalType, setModalType] = React.useState<'send' | 'receive' | 'swap' | null>(null);
+
+    const handleOpenModal = (type: 'send' | 'receive' | 'swap') => {
+        setModalType(type);
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setModalType(null);
+        setIsModalOpen(false);
+    };
+
 	return (
 		<div
 			id="dashboard"
 			className="min-h-screen bg-neutral-900 text-white p-6"
 		>
+			<ToastContainer />
 			<div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
 				<div className="bg-neutral-800 p-6 rounded-lg border border-neutral-700/30">
 					<div className="flex justify-between items-center mb-4">
@@ -49,8 +65,13 @@ const DashboardWidget = () => {
 						</svg>
 					</div>
 					<div className="flex items-end gap-2">
-						<span className="text-3xl font-bold">$24,567.89</span>
-						<span className="text-green-500 text-sm">+12.5%</span>
+						<span className="text-3xl font-bold">
+                            ${(balance * solPrice).toLocaleString(undefined, {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2,
+                                })}
+                        </span>
+						<span className="text-green-500 text-sm">+3.15%</span>
 					</div>
 				</div>
 
@@ -90,19 +111,127 @@ const DashboardWidget = () => {
 
 				<div className="bg-neutral-800 p-6 rounded-lg border border-neutral-700/30">
 					<h3 className="text-neutral-400 mb-4">Quick Actions</h3>
-					<div className="grid grid-cols-3 gap-2">
-						<button className="p-3 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors duration-300">
-							<span className="block text-xs">Send</span>
-						</button>
-						<button className="p-3 bg-green-600 hover:bg-green-700 rounded-lg transition-colors duration-300">
-							<span className="block text-xs">Receive</span>
-						</button>
-						<button className="p-3 bg-purple-600 hover:bg-purple-700 rounded-lg transition-colors duration-300">
-							<span className="block text-xs">Swap</span>
-						</button>
-					</div>
+
+                    <div className="grid grid-cols-3 gap-2">
+                        <button 
+                            className="p-3 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors duration-300"
+                            onClick={() => handleOpenModal('send')}
+                        >
+                            <span className="block text-xs">Send</span>
+                        </button>
+                        <button 
+                            className="p-3 bg-green-600 hover:bg-green-700 rounded-lg transition-colors duration-300"
+                            onClick={() => handleOpenModal('receive')}
+                        >
+                            <span className="block text-xs">Receive</span>
+                        </button>
+                        <button 
+                            className="p-3 bg-purple-600 hover:bg-purple-700 rounded-lg transition-colors duration-300"
+                            onClick={() => handleOpenModal('swap')}
+                        >
+                            <span className="block text-xs">Swap</span>
+                        </button>
+                    </div>
+                        {isModalOpen && (
+                            <div className="fixed inset-0 bg-black/20 backdrop-blur-sm flex items-center justify-center transition-opacity duration-900">
+                                <div className="bg-neutral-800 p-6 rounded-lg w-96">
+                                    <div className="flex justify-between items-center mb-4">
+                                        <h3 className="text-lg font-semibold">
+                                            {modalType === 'send' ? 'Send SOL' : 
+                                                modalType === 'receive' ? 'Receive SOL' : 'Swap Tokens'}
+                                        </h3>
+                                        <button onClick={handleCloseModal} className="text-neutral-400 hover:text-white">
+                                            ✕
+                                        </button>
+                                    </div>
+
+                                    {modalType === 'send' && (
+                                        <form className="space-y-4">
+                                            <div>
+                                                <label className="block text-sm text-neutral-400 mb-1">Recipient Address</label>
+                                                <input type="text" className="w-full bg-neutral-700 rounded p-2" />
+                                            </div>
+                                            <div>
+                                                <label className="block text-sm text-neutral-400 mb-1">Amount (SOL)</label>
+                                                <input type="number" className="w-full bg-neutral-700 rounded p-2" />
+                                            </div>
+                                            <button className="w-full bg-blue-600 hover:bg-blue-700 p-2 rounded">Send</button>
+                                        </form>
+                                    )}
+
+                                    {modalType === 'receive' && (
+                                        <div className="text-center">
+                                            <div>
+                                                <label className="block text-sm text-neutral-400 mb-1">Your Address</label>
+                                                <div className="m-2 flex justify-center">
+                                                    <QRCodeSVG
+                                                        value={wallet.publicKey ? wallet.publicKey.toString() : ''}
+                                                        size={256}
+                                                        bgColor="#1F2937"
+                                                        fgColor="#ffffff"
+                                                        className="bg-neutral-700 rounded-lg"
+                                                    />
+                                                </div>
+                                                <code className="bg-neutral-700/30 px-3 py-1 rounded flex items-center justify-between">
+                                                    {wallet.publicKey ? `${wallet.publicKey.toString().slice(0, 23)}...${wallet.publicKey.toString().slice(-3)}` : 'Not connected'}
+                                                    <button 
+                                                        onClick={() => {
+                                                            if (wallet.publicKey) {
+                                                                navigator.clipboard.writeText(wallet.publicKey.toString());
+                                                                toast.success('Address copied to clipboard!', {
+                                                                    position: "top-right",
+                                                                    autoClose: 1000,
+                                                                    hideProgressBar: false,
+                                                                    closeOnClick: true,
+                                                                    pauseOnHover: true,
+                                                                    draggable: true,
+                                                                    progress: undefined,
+                                                                    theme: "colored",
+                                                                    style: { backgroundColor: '#3b82f6', color: 'white' }
+                                                                });
+                                                            }
+                                                        }}
+                                                        className="text-blue-500 hover:text-blue-400"
+                                                    >
+                                                        <svg
+                                                            className="w-5 h-5"
+                                                            fill="none"
+                                                            stroke="currentColor"
+                                                            viewBox="0 0 24 24"
+                                                        >
+                                                            <path
+                                                                strokeLinecap="round"
+                                                                strokeLinejoin="round"
+                                                                strokeWidth="2"
+                                                                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                                                            />
+                                                        </svg>
+                        
+                                                    </button>
+                                                </code>
+                                            </div>
+                                            <p className="text-sm text-neutral-400">Share this address to receive SOL</p>
+                                        </div>
+                                    )}
+
+                                    {modalType === 'swap' && (
+                                        <form className="space-y-4">
+                                            <div>
+                                                <label className="block text-sm text-neutral-400 mb-1">From</label>
+                                                <input type="number" className="w-full bg-neutral-700 rounded p-2" placeholder="SOL" />
+                                            </div>
+                                            <div>
+                                                <label className="block text-sm text-neutral-400 mb-1">To</label>
+                                                <input type="number" className="w-full bg-neutral-700 rounded p-2" placeholder="USDC" />
+                                            </div>
+                                            <button className="w-full bg-purple-600 hover:bg-purple-700 p-2 rounded">Swap</button>
+                                        </form>
+                                    )}
+                                </div>
+                            </div>
+                        )}
+                    </div>
 				</div>
-			</div>
 
 			<div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 				<div className="bg-neutral-800 rounded-lg border border-neutral-700/30">
