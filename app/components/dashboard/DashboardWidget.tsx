@@ -4,6 +4,8 @@ import { Connection, Transaction, SystemProgram, LAMPORTS_PER_SOL, PublicKey } f
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { QRCodeSVG } from 'qrcode.react';
+import  { SendSol } from "./SendSol";
+
 const DashboardWidget = () => {
 	const wallet = useWallet();
     const connection = new Connection("https://api.devnet.solana.com");
@@ -144,8 +146,14 @@ const DashboardWidget = () => {
                                             ✕
                                         </button>
                                     </div>
-
-                                    {modalType === 'send' && (
+									{modalType === 'send' && (
+  								<SendSol 
+  								  wallet={wallet}
+  								  connection={connection}
+   								 handleCloseModal={handleCloseModal}
+ 								 />
+					)}
+                                    {/* {modalType === 'send' && (
                                         <form className="space-y-4">
                                             <div>
                                                 <label className="block text-sm text-neutral-400 mb-1">Recipient Address</label>
@@ -204,7 +212,7 @@ const DashboardWidget = () => {
                                                 Send
                                             </button>
                                         </form>
-                                    )}
+                                    )} */}
 
                                     {modalType === 'receive' && (
                                         <div className="text-center">
@@ -218,8 +226,9 @@ const DashboardWidget = () => {
                                                         fgColor="#ffffff"
                                                         className="bg-neutral-700 rounded-lg"
                                                     />
+
                                                 </div>
-                                                <code className="bg-neutral-700/30 px-3 py-1 rounded flex items-center justify-between">
+                                                 <code className="bg-neutral-700/30 px-3 py-1 rounded flex items-center justify-between">
                                                     {wallet.publicKey ? `${wallet.publicKey.toString().slice(0, 23)}...${wallet.publicKey.toString().slice(-3)}` : 'Not connected'}
                                                     <button 
                                                         onClick={() => {
