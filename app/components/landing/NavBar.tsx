@@ -1,4 +1,6 @@
-import React, { useEffect } from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import { Home, LogIn, Info } from "lucide-react";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 
@@ -12,16 +14,33 @@ declare global {
 
 const NavBar: React.FC = () => {
 	useEffect(() => {
-        setTimeout(() => {
-            if (window.solana?.isConnected) {
-                window.location.href = "/dashboard";
-            }
-        }
-        , 1000);
-    }, []);
+		setTimeout(() => {
+			if (window.solana?.isConnected) {
+				window.location.href = "/dashboard";
+			}
+		}, 1000);
+	}, []);
+	const [isScrolled, setIsScrolled] = useState(false);
+	useEffect(() => {
+		const handleScroll = () => {
+			if (window.scrollY > 50) {
+				setIsScrolled(true);
+			} else {
+				setIsScrolled(false);
+			}
+		};
+		window.addEventListener("scroll", handleScroll);
+		return () => window.removeEventListener("scroll", handleScroll);
+	});
 
 	return (
-		<nav className="bg-blue-500 p-4">
+		<nav
+			className={`fixed p-2 top-0 w-full z-50 transition-all duration-300 ${
+				isScrolled
+					? "bg-black/90 backdrop-blur-md shadow-sm"
+					: "bg-transparent"
+			}`}
+		>
 			<div className="container mx-auto flex justify-between items-center">
 				<div className="text-white text-xl font-bold">BKR DeFi</div>
 				<div className="flex space-x-2 font-semibold">
@@ -47,7 +66,7 @@ const NavBar: React.FC = () => {
 					</button>
 					<WalletMultiButton
 						style={{
-							backgroundColor: "transparent",
+							backgroundColor: "gray",
 							color: "white",
 							borderRadius: "5px",
 							padding: "2px 15px",

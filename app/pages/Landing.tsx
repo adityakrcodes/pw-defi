@@ -8,6 +8,7 @@ import Image from "next/image"
 import { ArrowRight, BarChart2, ChevronDown, Lock, ShieldCheck, Zap } from "lucide-react"
 import heroDashboard from '@/public/hero-dashboard.png'
 import defiVisualization from '@/public/defi-visualisation.png'
+import NavBar from "../components/landing/NavBar";
 
 export default function LandingPage() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -28,46 +29,7 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header
-        className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-          isScrolled ? "bg-black/90 backdrop-blur-md shadow-sm" : "bg-transparent"
-        }`}
-      >
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center">
-            <Link href="/" className="flex items-center">
-              <span className="text-xl font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
-                BKR DeFi
-              </span>
-            </Link>
-          </div>
-          <nav className="hidden md:flex space-x-8">
-            <Link href="#about" className="text-sm font-medium hover:text-primary transition-colors">
-              About
-            </Link>
-            <Link href="#features" className="text-sm font-medium hover:text-primary transition-colors">
-              Features
-            </Link>
-            <Link href="#how-it-works" className="text-sm font-medium hover:text-primary transition-colors">
-              How It Works
-            </Link>
-            <Link href="#testimonials" className="text-sm font-medium hover:text-primary transition-colors">
-              Testimonials
-            </Link>
-            <Link href="#team" className="text-sm font-medium hover:text-primary transition-colors">
-              Team
-            </Link>
-          </nav>
-          <div className="flex items-center space-x-4">
-            <div className="hidden md:inline-flex">
-              Log In
-            </div>
-            <div className="inline-flex items-center bg-gray-400 text-black px-6 py-3 rounded-lg font-bold transition-colors hover:bg-gray-400/80">
-              Get Started
-            </div>
-          </div>
-        </div>
-      </header>
+        <NavBar />
 
       {/* Hero Section */}
       <section className="pt-32 pb-24 md:pt-40 md:pb-32">
