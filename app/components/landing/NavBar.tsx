@@ -56,7 +56,7 @@ const NavBar: React.FC = () => {
 					>
 						<Home className="w-5 h-5" />
 						<span>
-                            {window.solana?.isConnected ? "Dashboard" : "Home"}
+                            Home
                         </span>
 					</button>
 					<button
