@@ -16,6 +16,7 @@ import {
 import heroDashboard from "@/public/hero-dashboard.png";
 import defiVisualization from "@/public/defi-visualisation.png";
 import NavBar from "../components/landing/NavBar";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function LandingPage() {
 	const [isScrolled, setIsScrolled] = useState(false);
@@ -35,6 +36,8 @@ export default function LandingPage() {
 
 	return (
 		<div className="min-h-screen bg-background">
+            {/* Toast Container */}
+            <ToastContainer />
 			{/* Header */}
 			<NavBar />
 
@@ -56,10 +59,12 @@ export default function LandingPage() {
 							borrow, and grow your crypto assets with confidence.
 						</p>
 						<div className="flex flex-col sm:flex-row justify-center gap-4 items-center">
-							<div className="inline-flex items-center bg-gray-400 text-black px-6 py-3 rounded-lg font-bold transition-colors hover:bg-gray-400/80 gap-2">
+							<button className="inline-flex items-center bg-gray-400 text-black px-6 py-3 rounded-lg font-bold transition-colors hover:bg-gray-400/80 gap-2" onClick={() => toast.error("Connect your wallet first!", {
+                                autoClose: 2000,
+                            })}>
 								Start Investing{" "}
 								<ArrowRight className="h-4 w-4" />
-							</div>
+							</button>
 						</div>
 					</motion.div>
 
