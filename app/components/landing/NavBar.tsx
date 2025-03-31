@@ -37,7 +37,7 @@ const NavBar: React.FC = () => {
 		<nav
 			className={`fixed p-2 top-0 w-full z-50 transition-all duration-300 ${
 				isScrolled
-					? "bg-black/90 backdrop-blur-md shadow-sm"
+					? "bg-black/30 backdrop-blur-md shadow-sm"
 					: "bg-transparent"
 			}`}
 		>
@@ -55,11 +55,13 @@ const NavBar: React.FC = () => {
 						}}
 					>
 						<Home className="w-5 h-5" />
-						<span>Home</span>
+						<span>
+                            {window.solana?.isConnected ? "Dashboard" : "Home"}
+                        </span>
 					</button>
 					<button
 						className="text-white flex items-center space-x-1"
-						onClick={() => (window.location.href = "/about")}
+						onClick={() => (window.location.href = "#about")}
 					>
 						<Info className="w-5 h-5" />
 						<span>About</span>
