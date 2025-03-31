@@ -118,7 +118,7 @@ export default function LandingPage() {
 								<div className="flex gap-4 mt-8">
 									<div className="text-center">
 										<div className="text-3xl font-bold text-primary mb-1">
-											$2B+
+											$500+
 										</div>
 										<div className="text-sm text-muted-foreground">
 											Total Value Locked
@@ -126,7 +126,7 @@ export default function LandingPage() {
 									</div>
 									<div className="text-center">
 										<div className="text-3xl font-bold text-primary mb-1">
-											100K+
+											3+
 										</div>
 										<div className="text-sm text-muted-foreground">
 											Active Users
@@ -134,10 +134,10 @@ export default function LandingPage() {
 									</div>
 									<div className="text-center">
 										<div className="text-3xl font-bold text-primary mb-1">
-											15+
+											1
 										</div>
 										<div className="text-sm text-muted-foreground">
-											Supported Chains
+											Supported Chain
 										</div>
 									</div>
 								</div>
@@ -207,22 +207,13 @@ export default function LandingPage() {
 						<ScrollAnimation delay={0.4}>
 							<FeatureCard
 								icon={
-									<ShieldCheck className="h-10 w-10 text-primary" />
-								}
-								title="Insurance Protection"
-								description="Optional coverage for your deposits against smart contract vulnerabilities and hacks."
-							/>
-						</ScrollAnimation>
-						<ScrollAnimation delay={0.5}>
-							<FeatureCard
-								icon={
 									<ChevronDown className="h-10 w-10 text-primary" />
 								}
 								title="Low Gas Fees"
 								description="Layer 2 integration and gas optimization to minimize transaction costs and maximize efficiency."
 							/>
 						</ScrollAnimation>
-						<ScrollAnimation delay={0.6}>
+						<ScrollAnimation delay={0.5}>
 							<FeatureCard
 								icon={
 									<BarChart2 className="h-10 w-10 text-primary" />
@@ -266,7 +257,7 @@ export default function LandingPage() {
 								<p className="text-muted-foreground">
 									Link your preferred crypto wallet to BKR
 									DeFi with a single click. We support
-									MetaMask, WalletConnect, and more.
+									Phantom, MetaMask, and more.
 								</p>
 							</div>
 						</ScrollAnimation>
