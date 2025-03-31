@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { Home, LogIn, Info } from "lucide-react";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+import Link from "next/link";
 
 declare global {
 	interface Window {
@@ -42,7 +43,7 @@ const NavBar: React.FC = () => {
 			}`}
 		>
 			<div className="container mx-auto flex justify-between items-center">
-				<div className="text-white text-xl font-bold">BKR DeFi</div>
+				<Link href={'/'} className="text-xl font-bold bg-gradient-to-r from-gray-400 to-gray-400/70 bg-clip-text text-transparent">BKR DeFi</Link>
 				<div className="flex space-x-2 font-semibold">
 					<button
 						className="text-white flex items-center space-x-1"
