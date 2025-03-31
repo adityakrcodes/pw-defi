@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -H 0.0.0.0",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -14,13 +14,14 @@
     "@solana/wallet-adapter-react-ui": "^0.9.35",
     "@solana/wallet-adapter-wallets": "^0.19.32",
     "@solana/web3.js": "^1.98.0",
+    "@yudiel/react-qr-scanner": "^2.2.1",
+    "framer-motion": "^12.6.2",
     "lucide-react": "^0.479.0",
     "next": "15.2.2",
     "qrcode.react": "^3.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-qr-scanner": "^1.0.0-alpha.11",
-    "@yudiel/react-qr-scanner": "^2.2.1",
     "react-toastify": "^11.0.5"
   },
   "devDependencies": {
