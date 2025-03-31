@@ -37,7 +37,7 @@ export default function LandingPage() {
           <div className="flex items-center">
             <Link href="/" className="flex items-center">
               <span className="text-xl font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
-                DeFiPro
+                BKR DeFi
               </span>
             </Link>
           </div>
@@ -62,7 +62,7 @@ export default function LandingPage() {
             <div className="hidden md:inline-flex">
               Log In
             </div>
-            <div>
+            <div className="inline-flex items-center bg-gray-400 text-black px-6 py-3 rounded-lg font-bold transition-colors hover:bg-gray-400/80">
               Get Started
             </div>
           </div>
@@ -86,11 +86,8 @@ export default function LandingPage() {
               and grow your crypto assets with confidence.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4 items-center">
-              <div className="inline-flex items-center bg-primary text-white px-6 py-3 rounded-lg font-bold transition-colors hover:bg-primary/80 gap-2">
+              <div className="inline-flex items-center bg-gray-400 text-black px-6 py-3 rounded-lg font-bold transition-colors hover:bg-gray-400/80 gap-2">
                 Start Investing <ArrowRight className="h-4 w-4" />
-              </div>
-              <div className="inline-flex items-center bg-gray-400 text-black font-bold px-6 py-3 rounded-lg transition-colors hover:bg-muted/20">
-                Watch Demo
               </div>
             </div>
           </motion.div>
@@ -122,12 +119,12 @@ export default function LandingPage() {
           <ScrollAnimation>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
               <div>
-                <div className="inline-block bg-primary/10 text-primary px-4 py-2 rounded-lg text-sm font-medium mb-6">
-                  About DeFiPro
+                <div className="inline-block bg-foreground/10 text-primary px-4 py-2 rounded-lg text-sm font-medium mb-6">
+                  About BKR DeFi
                 </div>
                 <h2 className="text-3xl md:text-4xl font-bold mb-6">Redefining Decentralized Finance</h2>
                 <p className="text-muted-foreground mb-6">
-                  DeFiPro was built on the principle that financial services should be open, transparent, and accessible
+                  BKR DeFi was built on the principle that financial services should be open, transparent, and accessible
                   to everyone. Our platform eliminates intermediaries, reduces costs, and provides opportunities
                   previously unavailable to most investors.
                 </p>
@@ -170,7 +167,7 @@ export default function LandingPage() {
         <div className="container mx-auto px-4">
           <ScrollAnimation>
             <div className="max-w-3xl mx-auto text-center mb-16">
-              <div className="inline-block bg-primary/10 text-primary px-4 py-2 rounded-lg text-sm font-medium mb-6">
+              <div className="inline-block bg-gray-400/10 text-primary px-4 py-2 rounded-lg text-sm font-medium mb-6">
                 Features
               </div>
               <h2 className="text-3xl md:text-4xl font-bold mb-6">Everything You Need to Succeed in DeFi</h2>
@@ -233,34 +230,34 @@ export default function LandingPage() {
         <div className="container mx-auto px-4">
           <ScrollAnimation>
             <div className="max-w-3xl mx-auto text-center mb-16">
-              <div className="inline-block bg-primary/10 text-primary px-4 py-2 rounded-lg text-sm font-medium mb-6">
+              <div className="inline-block bg-gray-400/10 text-primary px-4 py-2 rounded-lg text-sm font-medium mb-6">
                 How It Works
               </div>
               <h2 className="text-3xl md:text-4xl font-bold mb-6">Simple Steps to Start Your DeFi Journey</h2>
               <p className="text-muted-foreground">
-                Getting started with DeFiPro is easy, even if you're new to decentralized finance. Follow these simple
+                Getting started with BKR DeFi is easy, even if you're new to decentralized finance. Follow these simple
                 steps to begin.
               </p>
             </div>
           </ScrollAnimation>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mx-2">
             <ScrollAnimation delay={0.1}>
               <div className="bg-black p-8 rounded-xl shadow-sm relative">
-                <div className="absolute -top-4 -left-4 w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white font-bold text-xl">
+                <div className="absolute -top-4 -left-4 w-12 h-12 rounded-full bg-gray-400 flex items-center justify-center text-black font-bold text-xl">
                   1
                 </div>
                 <h3 className="text-xl font-bold mb-4 mt-4">Connect Your Wallet</h3>
                 <p className="text-muted-foreground">
-                  Link your preferred crypto wallet to DeFiPro with a single click. We support MetaMask, WalletConnect,
+                  Link your preferred crypto wallet to BKR DeFi with a single click. We support MetaMask, WalletConnect,
                   and more.
                 </p>
               </div>
             </ScrollAnimation>
             <ScrollAnimation delay={0.2}>
               <div className="bg-black p-8 rounded-xl shadow-sm relative">
-                <div className="absolute -top-4 -left-4 w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white font-bold text-xl">
-                  2
+                 <div className="absolute -top-4 -left-4 w-12 h-12 rounded-full bg-gray-400 flex items-center justify-center text-black font-bold text-xl">
+                    2
                 </div>
                 <h3 className="text-xl font-bold mb-4 mt-4">Deposit Your Assets</h3>
                 <p className="text-muted-foreground">
@@ -271,8 +268,8 @@ export default function LandingPage() {
             </ScrollAnimation>
             <ScrollAnimation delay={0.3}>
               <div className="bg-black p-8 rounded-xl shadow-sm relative">
-                <div className="absolute -top-4 -left-4 w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white font-bold text-xl">
-                  3
+                <div className="absolute -top-4 -left-4 w-12 h-12 rounded-full bg-gray-400 flex items-center justify-center text-black font-bold text-xl">
+                    3
                 </div>
                 <h3 className="text-xl font-bold mb-4 mt-4">Start Earning</h3>
                 <p className="text-muted-foreground">
@@ -286,11 +283,11 @@ export default function LandingPage() {
       </section>
 
       {/* Testimonials */}
-      <section id="testimonials" className="py-24">
+      {/* <section id="testimonials" className="py-24">
         <div className="container mx-auto px-4">
           <ScrollAnimation>
             <div className="max-w-3xl mx-auto text-center mb-16">
-              <div className="inline-block bg-primary/10 text-primary px-4 py-2 rounded-lg text-sm font-medium mb-6">
+              <div className="inline-block bg-gray-400/10 text-primary px-4 py-2 rounded-lg text-sm font-medium mb-6">
                 Testimonials
               </div>
               <h2 className="text-3xl md:text-4xl font-bold mb-6">What Our Users Say</h2>
@@ -303,14 +300,14 @@ export default function LandingPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <ScrollAnimation delay={0.1}>
               <TestimonialCard
-                quote="DeFiPro made it incredibly easy for me to start earning passive income from my crypto holdings. The interface is intuitive and the returns have been impressive."
+                quote="BKR DeFi made it incredibly easy for me to start earning passive income from my crypto holdings. The interface is intuitive and the returns have been impressive."
                 name="Alex Johnson"
                 title="Crypto Investor"
               />
             </ScrollAnimation>
             <ScrollAnimation delay={0.2}>
               <TestimonialCard
-                quote="As someone new to DeFi, I was worried about complexity. DeFiPro's simple approach and excellent support made the journey seamless. I'm now earning more than I ever did with traditional finance."
+                quote="As someone new to DeFi, I was worried about complexity. BKR DeFi's simple approach and excellent support made the journey seamless. I'm now earning more than I ever did with traditional finance."
                 name="Sarah Williams"
                 title="First-time DeFi User"
               />
@@ -324,17 +321,17 @@ export default function LandingPage() {
             </ScrollAnimation>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Team Section */}
       <section id="team" className="py-24 bg-muted/30">
         <div className="container mx-auto px-4">
           <ScrollAnimation>
             <div className="max-w-3xl mx-auto text-center mb-16">
-              <div className="inline-block bg-primary/10 text-primary px-4 py-2 rounded-lg text-sm font-medium mb-6">
+              <div className="inline-block bg-gray-400/10 text-primary px-4 py-2 rounded-lg text-sm font-medium mb-6">
                 Our Team
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">Meet the Experts Behind DeFiPro</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">Meet the Experts Behind BKR DeFi</h2>
               <p className="text-muted-foreground">
                 Our team combines decades of experience in blockchain technology, finance, and user experience design to
                 create the most accessible DeFi platform.
@@ -345,42 +342,35 @@ export default function LandingPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <ScrollAnimation delay={0.1}>
               <TeamMemberCard
-                name="Emma Chen"
-                role="Founder & CEO"
-                description="Former blockchain lead at a major financial institution with 10+ years in DeFi development."
-                github="https://github.com/emmachen"
-                linkedin="https://linkedin.com/in/emmachen"
-                website="https://emmachen.dev"
+                name="Aditya Kumar"
+                image="https://avatars.githubusercontent.com/u/104731745?v=4"
+                role="Solana Smart Contracts and Backend Developer"
+                description="Expert in building secure and efficient smart contracts on Solana, with a focus on performance and scalability."
+                github="https://github.com/adityakrcodes"
+                linkedin="https://linkedin.com/in/adityakrcodes"
+                website="https://adityakrcodes.com"
               />
             </ScrollAnimation>
             <ScrollAnimation delay={0.2}>
               <TeamMemberCard
-                name="David Rodriguez"
-                role="CTO"
-                description="Smart contract expert and security researcher with contributions to major DeFi protocols."
-                github="https://github.com/davidrodriguez"
-                linkedin="https://linkedin.com/in/davidrodriguez"
+                name="Abdul Bayees"
+                image="https://avatars.githubusercontent.com/u/76129251?v=4"
+                role="Frontend Developer"
+                description="Developed multiple DeFi applications with a focus on user experience and performance."
+                github="https://github.com/ab7022"
+                linkedin="https://linkedin.com/in/abdulbayees/"
                 website="https://davidrodriguez.tech"
               />
             </ScrollAnimation>
             <ScrollAnimation delay={0.3}>
               <TeamMemberCard
-                name="Sarah Johnson"
-                role="Head of Product"
-                description="Specializes in creating intuitive user experiences for complex financial products."
-                github="https://github.com/sarahjohnson"
-                linkedin="https://linkedin.com/in/sarahjohnson"
-                website="https://sarahjohnson.design"
-              />
-            </ScrollAnimation>
-            <ScrollAnimation delay={0.4}>
-              <TeamMemberCard
-                name="Michael Park"
-                role="Lead Developer"
-                description="Full-stack developer with expertise in scaling DeFi applications and optimizing gas usage."
-                github="https://github.com/michaelpark"
-                linkedin="https://linkedin.com/in/michaelpark"
-                website="https://michaelpark.dev"
+                name="Akhil D"
+                image="https://avatars.githubusercontent.com/u/69696969?v=4"
+                role="Database Developer"
+                description="Expert in database management and optimization for high-performance applications."
+                github="#"
+                linkedin="#"
+                website="#"
               />
             </ScrollAnimation>
           </div>
@@ -394,10 +384,10 @@ export default function LandingPage() {
             <div className="max-w-3xl mx-auto text-center">
               <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">Ready to Start Your DeFi Journey?</h2>
               <p className="text-white/80 mb-8 text-lg">
-                Join thousands of investors already using DeFiPro to grow their digital assets and access the future of
+                Join thousands of investors already using BKR DeFi to grow their digital assets and access the future of
                 finance.
               </p>
-              <div className="gap-2">
+              <div className="inline-flex items-center bg-gray-400 text-black px-6 py-3 rounded-lg font-bold transition-colors hover:bg-gray-400/80">
                 Get Started Now <ArrowRight className="h-4 w-4" />
               </div>
             </div>
@@ -412,7 +402,7 @@ export default function LandingPage() {
             <div className="space-y-4">
               <Link href="/" className="flex items-center">
                 <span className="text-xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-                  DeFiPro
+                  BKR DeFi
                 </span>
               </Link>
               <p className="text-muted-foreground text-sm">
@@ -496,7 +486,7 @@ export default function LandingPage() {
             </div>
           </div>
           <div className="border-t border-border mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-            <p className="text-sm text-muted-foreground">© {new Date().getFullYear()} DeFiPro. All rights reserved.</p>
+            <p className="text-sm text-muted-foreground">© {new Date().getFullYear()} BKR DeFi. All rights reserved.</p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <Link href="#" className="text-muted-foreground hover:text-primary">
                 <span className="sr-only">Twitter</span>
@@ -596,6 +586,7 @@ function TestimonialCard({ quote, name, title }: TestimonialCardProps) {
 
 // Team member card component
 interface TeamMemberCardProps {
+    image: string;
     name: string;
     role: string;
     description: string;
@@ -604,13 +595,13 @@ interface TeamMemberCardProps {
     website: string;
 }
 
-function TeamMemberCard({ name, role, description, github, linkedin, website }: TeamMemberCardProps) {
+function TeamMemberCard({ image, name, role, description, github, linkedin, website }: TeamMemberCardProps) {
   return (
     <div className="bg-black p-8 rounded-xl shadow-sm border border-border/40 hover:border-primary/20 hover:shadow-md transition-all">
       <div className="flex flex-col items-center">
         <div className="w-24 h-24 rounded-full bg-muted mb-4 overflow-hidden">
           <Image
-            src="/placeholder.svg?height=96&width=96"
+            src={image}
             width={96}
             height={96}
             alt={name}
