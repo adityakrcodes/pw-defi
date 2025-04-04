@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Home, LogIn, Info } from "lucide-react";
+import { Home, LayoutList , Info, UsersRound } from "lucide-react";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import Link from "next/link";
 
@@ -46,7 +46,7 @@ const NavBar: React.FC = () => {
 				<Link href={'/'} className="text-xl font-bold bg-gradient-to-r from-gray-400 to-gray-400/70 bg-clip-text text-transparent">BKR DeFi</Link>
 				<div className="flex space-x-2 font-semibold">
 					<button
-						className="text-white flex items-center space-x-1"
+						className="text-white flex items-center space-x-1 cursor-pointer"
 						onClick={() => {
 							if (window.solana?.isConnected) {
 								window.location.href = "/dashboard";
@@ -61,11 +61,25 @@ const NavBar: React.FC = () => {
                         </span>
 					</button>
 					<button
-						className="text-white flex items-center space-x-1"
+						className="text-white flex items-center space-x-1 cursor-pointer"
 						onClick={() => (window.location.href = "#about")}
 					>
 						<Info className="w-5 h-5" />
 						<span>About</span>
+					</button>
+                    <button
+						className="text-white flex items-center space-x-1 cursor-pointer"
+						onClick={() => (window.location.href = "#features")}
+					>
+						<LayoutList className="w-5 h-5" />
+						<span>Features</span>
+					</button>
+                    <button
+						className="text-white flex items-center space-x-1 cursor-pointer"
+						onClick={() => (window.location.href = "#team")}
+					>
+						<UsersRound className="w-5 h-5" />
+						<span>Team</span>
 					</button>
 					<WalletMultiButton
 						style={{

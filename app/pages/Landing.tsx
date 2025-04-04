@@ -222,6 +222,15 @@ export default function LandingPage() {
 								description="Comprehensive analytics dashboard to track performance, profitability, and asset allocation."
 							/>
 						</ScrollAnimation>
+                        <ScrollAnimation delay={0.5}>
+							<FeatureCard
+								icon={
+									<ShieldCheck className="h-10 w-10 text-primary" />
+								}
+								title="Secure Transfers"
+								description="We leverage the Solana Blockchain for the transfer of funds and financial operations."
+							/>
+						</ScrollAnimation>
 					</div>
 				</div>
 			</section>
