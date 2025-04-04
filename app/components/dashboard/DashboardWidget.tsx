@@ -19,6 +19,29 @@ const DashboardWidget = () => {
         }
     }
     , [wallet.publicKey]);
+    const walletAddress = wallet.publicKey ? wallet.publicKey.toString() : null;
+    React.useEffect(() => {
+        if (walletAddress) {
+            fetch(`http://localhost:5001/api/checkId`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ wallet: walletAddress }),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (!data.exists) {
+                        console.log("Wallet Address not in database");
+                        window.location.href = "/signup";
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error validating wallet address:", error);
+                    toast.error("Error validating wallet address");});
+        }
+    }, [walletAddress]);
+
 
     const [solPrice, setSolPrice] = React.useState(0);
     React.useEffect(() => {
