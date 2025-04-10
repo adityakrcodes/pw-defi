@@ -18,6 +18,7 @@ const RegistrationPage = () => {
 	const [loading, setLoading] = useState(false);
 	const router = useRouter();
     const wallet = useWallet()
+    const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
 
     useEffect(() => {
         if (wallet && wallet.publicKey) {
@@ -39,16 +40,16 @@ const RegistrationPage = () => {
         }
 
 		try {
-			const response = await fetch(
-				"http://localhost:5000/api/auth/register",
-				{
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({ walletAddress, firstname, lastname, username, email, password }),
-				}
-			);
+            const response = await fetch(
+                `${serverUrl}/api/auth/register`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ walletAddress, firstname, lastname, username, email, password }),
+                }
+            );
 
 			const data = await response.json();
 
