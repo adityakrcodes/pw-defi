@@ -45,42 +45,44 @@ const NavBar: React.FC = () => {
 			<div className="container mx-auto flex justify-between items-center">
 				<Link href={'/'} className="text-xl font-bold bg-gradient-to-r from-gray-400 to-gray-400/70 bg-clip-text text-transparent">BKR DeFi</Link>
 				<div className="flex space-x-2 font-semibold">
-					<button
-						className="text-white flex items-center space-x-1 cursor-pointer"
-						onClick={() => {
-							if (window.solana?.isConnected) {
-								window.location.href = "/dashboard";
-							} else {
-								window.location.href = "/";
-							}
-						}}
-					>
-						<Home className="w-5 h-5" />
-						<span>
-                            Home
-                        </span>
-					</button>
-					<button
-						className="text-white flex items-center space-x-1 cursor-pointer"
-						onClick={() => (window.location.href = "#about")}
-					>
-						<Info className="w-5 h-5" />
-						<span>About</span>
-					</button>
-                    <button
-						className="text-white flex items-center space-x-1 cursor-pointer"
-						onClick={() => (window.location.href = "#features")}
-					>
-						<LayoutList className="w-5 h-5" />
-						<span>Features</span>
-					</button>
-                    <button
-						className="text-white flex items-center space-x-1 cursor-pointer"
-						onClick={() => (window.location.href = "#team")}
-					>
-						<UsersRound className="w-5 h-5" />
-						<span>Team</span>
-					</button>
+                    <div className="hidden md:flex space-x-2">
+                        <button
+                            className="text-white flex items-center space-x-1 cursor-pointer"
+                            onClick={() => {
+                                if (window.solana?.isConnected) {
+                                    window.location.href = "/dashboard";
+                                } else {
+                                    window.location.href = "/";
+                                }
+                            }}
+                        >
+                            <Home className="w-5 h-5" />
+                            <span>
+                                Home
+                            </span>
+                        </button>
+                        <button
+                            className="text-white flex items-center space-x-1 cursor-pointer"
+                            onClick={() => (window.location.href = "#about")}
+                        >
+                            <Info className="w-5 h-5" />
+                            <span>About</span>
+                        </button>
+                        <button
+                            className="text-white flex items-center space-x-1 cursor-pointer"
+                            onClick={() => (window.location.href = "#features")}
+                        >
+                            <LayoutList className="w-5 h-5" />
+                            <span>Features</span>
+                        </button>
+                        <button
+                            className="text-white flex items-center space-x-1 cursor-pointer"
+                            onClick={() => (window.location.href = "#team")}
+                        >
+                            <UsersRound className="w-5 h-5" />
+                            <span>Team</span>
+                        </button>
+                    </div>
 					<WalletMultiButton
 						style={{
 							backgroundColor: "gray",
