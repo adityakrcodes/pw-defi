@@ -39,7 +39,7 @@ const DashboardWidget = () => {
                 .then((data) => {
                     if (!data.exists) {
                         console.log("Wallet Address not in database");
-                        window.location.href = "/signup";
+                        window.location.href = "/register";
                     }else if(data.exists) {
                         console.log("Wallet Address exists in database");
                     }

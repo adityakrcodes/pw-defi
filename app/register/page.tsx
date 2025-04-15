@@ -86,7 +86,7 @@ const RegistrationPage = () => {
                         value={walletAddress}
                         onChange={(e) => setWalletAddress(e.target.value)}
                         required
-                        className="bg-gray-200 text-gray-800 rounded shadow-md p-1"
+                        className="w-full px-4 py-3 bg-neutral-700/30 border border-neutral-600 rounded-lg focus:outline-none focus:border-blue-500 text-white placeholder-neutral-500"
                         disabled={true} // it's disabled because we are getting it from the wallet
                     />
                 </div>
@@ -98,7 +98,7 @@ const RegistrationPage = () => {
                         value={firstname}
                         onChange={(e) => setFirstname(e.target.value)}
                         required
-                        className="bg-gray-200 text-gray-800 rounded shadow-md p-1"
+                        className="w-full px-4 py-3 bg-neutral-700/30 border border-neutral-600 rounded-lg focus:outline-none focus:border-blue-500 text-white placeholder-neutral-500"
                         placeholder="Bablesh"
                     />
                 </div>
@@ -110,7 +110,7 @@ const RegistrationPage = () => {
                         value={lastname}
                         onChange={(e) => setLastname(e.target.value)}
                         required
-                        className="bg-gray-200 text-gray-800 rounded shadow-md p-1"
+                        className="w-full px-4 py-3 bg-neutral-700/30 border border-neutral-600 rounded-lg focus:outline-none focus:border-blue-500 text-white placeholder-neutral-500"
                         placeholder="Khalifa"
                     />
                 </div>
@@ -122,7 +122,7 @@ const RegistrationPage = () => {
 						value={username}
 						onChange={(e) => setUsername(e.target.value)}
 						required
-						className="bg-gray-200 text-gray-800 rounded shadow-md p-1"
+						className="w-full px-4 py-3 bg-neutral-700/30 border border-neutral-600 rounded-lg focus:outline-none focus:border-blue-500 text-white placeholder-neutral-500"
 						placeholder="bableshkhalifa"
 					/>
 				</div>
@@ -134,7 +134,7 @@ const RegistrationPage = () => {
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
 						required
-						className="bg-gray-200 text-gray-800 rounded shadow-md p-1"
+						className="w-full px-4 py-3 bg-neutral-700/30 border border-neutral-600 rounded-lg focus:outline-none focus:border-blue-500 text-white placeholder-neutral-500"
 						placeholder="bkr@defi.com"
 					/>
 				</div>
@@ -146,7 +146,7 @@ const RegistrationPage = () => {
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
 						required
-						className="bg-gray-200 text-gray-800 rounded shadow-md p-1"
+						className="w-full px-4 py-3 bg-neutral-700/30 border border-neutral-600 rounded-lg focus:outline-none focus:border-blue-500 text-white placeholder-neutral-500"
 						placeholder="********"
 					/>
 				</div>
@@ -158,7 +158,7 @@ const RegistrationPage = () => {
 						value={confirmPassword}
 						onChange={(e) => setConfirmPassword(e.target.value)}
 						required
-						className="bg-gray-200 text-gray-800 rounded shadow-md p-1"
+						className="w-full px-4 py-3 bg-neutral-700/30 border border-neutral-600 rounded-lg focus:outline-none focus:border-blue-500 text-white placeholder-neutral-500"
 						placeholder="********"
 					/>
 				</div>
