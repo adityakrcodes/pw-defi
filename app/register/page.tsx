@@ -55,9 +55,9 @@ const RegistrationPage = () => {
 
 			if (response.ok) {
 				console.log("Registration successful:", data);
-				if (router) {
-					router.push("/login");
-				}
+                toast.success("Registration successful! Redirecting to dashboard...");
+                await new Promise(resolve => setTimeout(resolve, 1000));
+				window.location.href = "/dashboard";
 			} else {
 				setError(data.message || "Registration failed");
 			}
