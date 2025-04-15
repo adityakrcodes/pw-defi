@@ -22,13 +22,13 @@ const DashboardWidget = () => {
     const walletAddress = wallet.publicKey ? wallet.publicKey.toString() : null;
     React.useEffect(() => {
         if (walletAddress) {
-			const backendServer = process.env.NEXT_PUBLIC_BACKEND_SERVER;
+			const backendServer = process.env.NEXT_PUBLIC_BACKEND_SERVER || 'http://localhost:5000';
 			if (!backendServer) {
 				console.error("Backend server URL is not defined");
 				toast.error("Backend server URL is not defined");
 				return;
 			}
-			fetch(backendServer, {
+			fetch(`${backendServer}/api/checkId`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
