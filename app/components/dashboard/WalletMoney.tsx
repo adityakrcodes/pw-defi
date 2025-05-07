@@ -1,11 +1,33 @@
 import { useWallet } from "@solana/wallet-adapter-react";
-import React from "react";
+import React, { use } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { WalletDisconnectButton, WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+import { Connection, LAMPORTS_PER_SOL } from "@solana/web3.js";
 
 const WalletMoney = () => {
 	const wallet = useWallet();
+    const connection = new Connection("https://api.devnet.solana.com");
+    
+    const [balance, setBalance] = React.useState(0);
+    React.useEffect(() => {
+        if (wallet.publicKey) {
+            connection.getBalance(wallet.publicKey).then((balance) => {
+                setBalance(balance / 10 ** 9);
+            });
+        }
+    }
+    , [wallet.publicKey]);
+    const walletAddress = wallet.publicKey ? wallet.publicKey.toString() : null;
+
+    const [solPrice, setSolPrice] = React.useState(0);
+    React.useEffect(() => {
+        fetch("https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd")
+            .then((response) => response.json())
+            .then((data) => {
+                setSolPrice(data.solana.usd);
+            });
+    }, []);
 	return (
 		<div id="wallet" className="min-h-screen bg-neutral-900 text-white p-6">
 			<ToastContainer />
@@ -94,14 +116,18 @@ const WalletMoney = () => {
 								</div>
 							</div>
 							<div className="text-right">
-								<p className="font-medium">458.32 SOL</p>
+								<p className="font-medium">{walletAddress ? `${balance} SOL` : '0.00 SOL'}
+                                </p>
 								<p className="text-sm text-neutral-400">
-									$34,891
+                                    ${(balance * solPrice).toLocaleString(undefined, {
+                                        minimumFractionDigits: 2,
+                                        maximumFractionDigits: 2,
+                                    })}
 								</p>
 							</div>
 						</div>
 
-						<div className="flex items-center justify-between p-3 bg-neutral-700/30 rounded-lg">
+						{/* <div className="flex items-center justify-between p-3 bg-neutral-700/30 rounded-lg">
 							<div className="flex items-center gap-3">
 								<div className="w-8 h-8 bg-green-600 rounded-full"></div>
 								<div>
@@ -117,9 +143,9 @@ const WalletMoney = () => {
 									$10,234.56
 								</p>
 							</div>
-						</div>
+						</div> */}
 
-						<div className="flex items-center justify-between p-3 bg-neutral-700/30 rounded-lg">
+						{/* <div className="flex items-center justify-between p-3 bg-neutral-700/30 rounded-lg">
 							<div className="flex items-center gap-3">
 								<div className="w-8 h-8 bg-purple-600 rounded-full"></div>
 								<div>
@@ -135,7 +161,7 @@ const WalletMoney = () => {
 									$4,703.67
 								</p>
 							</div>
-						</div>
+						</div> */}
 					</div>
 				</div>
 
