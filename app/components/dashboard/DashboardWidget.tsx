@@ -305,13 +305,16 @@ const DashboardWidget = () => {
                                         <form className="space-y-4">
                                             <div>
                                                 <label className="block text-sm text-neutral-400 mb-1">From</label>
-                                                <input type="number" className="w-full bg-neutral-700 rounded p-2" placeholder="SOL" />
+                                                <input type="number" className="w-full bg-neutral-700 rounded p-2" placeholder="SOL" disabled />
                                             </div>
                                             <div>
                                                 <label className="block text-sm text-neutral-400 mb-1">To</label>
-                                                <input type="number" className="w-full bg-neutral-700 rounded p-2" placeholder="USDC" />
+                                                <input type="number" className="w-full bg-neutral-700 rounded p-2" placeholder="USDC" disabled />
                                             </div>
-                                            <button className="w-full bg-purple-600 hover:bg-purple-700 p-2 rounded">Swap</button>
+                                            <button className="w-full bg-purple-600 hover:bg-purple-700 p-2 rounded" disabled>Swap</button>
+                                            <span className="text-sm font-bold text-red-400">
+                                                *Under Development
+                                            </span>
                                         </form>
                                     )}
                                 </div>
