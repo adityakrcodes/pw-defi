@@ -24,8 +24,8 @@ const Sidebar: React.FC<SidebarProps> = ({ isMenuOpen, setActivePage, activePage
     { name: "Stake", icon: LineChart },
     { name: "Analytics", icon: BarChart3 },
     { name: "Profile", icon: UserCircle },
-    { name: "Signin", icon: UserCircle },
-    { name: "Admin Dashboard", icon: UserCircle },
+    // { name: "Signin", icon: UserCircle },
+    // { name: "Admin Dashboard", icon: UserCircle },
   ];
   return (
     <nav
