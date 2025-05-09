@@ -3,9 +3,9 @@ import React, { use } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { WalletDisconnectButton, WalletMultiButton } from "@solana/wallet-adapter-react-ui";
-import { Connection, LAMPORTS_PER_SOL } from "@solana/web3.js";
+import { Connection, LAMPORTS_PER_SOL, PublicKey, Transaction, SystemProgram } from "@solana/web3.js";
 
-interface Transaction {
+interface TransactionData {
     transactionType: 'SEND' | 'RECEIVE';
     token: string;
     amount: number;
@@ -20,7 +20,82 @@ const WalletMoney = () => {
     const connection = new Connection("https://api.devnet.solana.com");
     const serverUrl = process.env.NEXT_PUBLIC_BACKEND_SERVER || "http://localhost:5000";
     const walletAddress = wallet.publicKey ? wallet.publicKey.toString() : null;
-    const [transactions, setTransactions] = React.useState<Transaction[]>([]);
+    const [transactions, setTransactions] = React.useState<TransactionData[]>([]);
+    const [transferAmount, setTransferAmount] = React.useState('');
+    const [recipientAddress, setRecipientAddress] = React.useState('');
+    const [isTransferring, setIsTransferring] = React.useState(false);
+
+    const handleTransfer = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!wallet.publicKey || !wallet.signTransaction) {
+            toast.error('Please connect your wallet first');
+            return;
+        }
+
+        try {
+            setIsTransferring(true);
+            const recipient = new PublicKey(recipientAddress);
+            const amount = parseFloat(transferAmount);
+            
+            if (isNaN(amount) || amount <= 0) {
+                toast.error('Please enter a valid amount');
+                return;
+            }
+
+            const transaction = new Transaction().add(
+                SystemProgram.transfer({
+                    fromPubkey: wallet.publicKey,
+                    toPubkey: recipient,
+                    lamports: amount * LAMPORTS_PER_SOL
+                })
+            );
+
+            const { blockhash } = await connection.getLatestBlockhash();
+            transaction.recentBlockhash = blockhash;
+            transaction.feePayer = wallet.publicKey;
+
+            const signed = await wallet.signTransaction(transaction);
+            const signature = await connection.sendRawTransaction(signed.serialize());
+            await connection.confirmTransaction(signature);
+            try {
+                const response = await fetch(`${serverUrl}/api/createTransaction`, {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    receiverAddress: recipient,
+                    walletAddress: wallet.publicKey.toString(),
+                    token: 'SOL',
+                    amount: parseFloat(transferAmount) * LAMPORTS_PER_SOL,
+                    transactionType: 'SEND',
+                    transactionStatus: 'completed',
+                    transactionHash: signature
+                  })
+                });
+        
+                if (!response.ok) {
+                  throw new Error('Failed to save transaction details');
+                }
+              } catch (error) {
+                console.error('Error saving transaction details:', error);
+              }
+            toast.success('Transfer successful!');
+            setTransferAmount('');
+            setRecipientAddress('');
+            
+            // Refresh transactions
+            const response = await fetch(`${serverUrl}/api/getTransactions/${walletAddress}`);
+            const data = await response.json();
+            setTransactions(data);
+        } catch (error) {
+            console.error('Transfer failed:', error);
+            toast.error('Transfer failed. Please try again.');
+        } finally {
+            setIsTransferring(false);
+        }
+    };
+
     React.useEffect(() => {
         fetch(`${serverUrl}/api/getTransactions/${walletAddress}`)
             .then((response) => response.json())
@@ -190,15 +265,14 @@ const WalletMoney = () => {
 					<h3 className="text-lg font-semibold mb-4">
 						Quick Transfer
 					</h3>
-					<form className="space-y-4">
+					<form className="space-y-4" onSubmit={handleTransfer}>
 						<div>
 							<label className="block text-sm font-medium text-neutral-400 mb-1">
 								Token
 							</label>
 							<select className="w-full bg-neutral-700/30 border border-neutral-600 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500">
 								<option>SOL</option>
-								<option>USDC</option>
-								<option>RAY</option>
+                                <option disabled>More Available Soon</option>
 							</select>
 						</div>
 						<div>
@@ -207,6 +281,8 @@ const WalletMoney = () => {
 							</label>
 							<input
 								type="text"
+								value={recipientAddress}
+								onChange={(e) => setRecipientAddress(e.target.value)}
 								className="w-full bg-neutral-700/30 border border-neutral-600 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
 								placeholder="Enter wallet address"
 							/>
@@ -217,15 +293,24 @@ const WalletMoney = () => {
 							</label>
 							<input
 								type="number"
+								value={transferAmount}
+								onChange={(e) => setTransferAmount(e.target.value)}
 								className="w-full bg-neutral-700/30 border border-neutral-600 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
 								placeholder="0.00"
+								step="0.000000001"
+								min="0"
 							/>
 						</div>
 						<button
 							type="submit"
-							className="w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors duration-300"
+							disabled={isTransferring || !wallet.publicKey}
+							className={`w-full px-6 py-3 rounded-lg transition-colors duration-300 ${
+								isTransferring || !wallet.publicKey
+									? 'bg-blue-600/50 cursor-not-allowed'
+									: 'bg-blue-600 hover:bg-blue-700'
+							}`}
 						>
-							Send Tokens
+							{isTransferring ? 'Transferring...' : 'Send SOL'}
 						</button>
 					</form>
 				</div>
