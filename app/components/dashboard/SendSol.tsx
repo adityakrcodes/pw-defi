@@ -98,7 +98,8 @@ export const SendSol = ({ wallet, connection, handleCloseModal }:any) => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            walletAddress: recipient,
+            receiverAddress: recipient,
+            walletAddress: wallet.publicKey.toString(),
             token: 'SOL',
             amount: parseFloat(amount) * LAMPORTS_PER_SOL,
             transactionType: 'SEND',
