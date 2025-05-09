@@ -290,9 +290,11 @@ const WalletMoney = () => {
 										</span>
 									</td>
 									<td className="p-4">
-										<code className="text-sm">
-											{`${transaction.transactionHash.slice(0,4)}...${transaction.transactionHash.slice(-4)}`}
-										</code>
+										<a href={`https://solscan.io/tx/${transaction.transactionHash}?cluster=devnet`} target="_blank" rel="noopener noreferrer">
+											<code className="text-sm">
+												{`${transaction.transactionHash.slice(0,4)}...${transaction.transactionHash.slice(-4)}`}
+											</code>
+										</a>
 									</td>
 								</tr>
 							))}
