@@ -5,10 +5,32 @@ import 'react-toastify/dist/ReactToastify.css';
 import { WalletDisconnectButton, WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { Connection, LAMPORTS_PER_SOL } from "@solana/web3.js";
 
+interface Transaction {
+    transactionType: 'SEND' | 'RECEIVE';
+    token: string;
+    amount: number;
+    walletAddress: string;
+    createdAt: string;
+    transactionStatus: 'completed' | 'pending';
+    transactionHash: string;
+}
+
 const WalletMoney = () => {
 	const wallet = useWallet();
     const connection = new Connection("https://api.devnet.solana.com");
-    
+    const serverUrl = process.env.NEXT_PUBLIC_BACKEND_SERVER || "http://localhost:5000";
+    const walletAddress = wallet.publicKey ? wallet.publicKey.toString() : null;
+    const [transactions, setTransactions] = React.useState<Transaction[]>([]);
+    React.useEffect(() => {
+        fetch(`${serverUrl}/api/getTransactions/${walletAddress}`)
+            .then((response) => response.json())
+            .then((data) => {
+                setTransactions(data);
+            });
+    }, [walletAddress]);
+    console.log(transactions);
+
+
     const [balance, setBalance] = React.useState(0);
     React.useEffect(() => {
         if (wallet.publicKey) {
@@ -18,7 +40,6 @@ const WalletMoney = () => {
         }
     }
     , [wallet.publicKey]);
-    const walletAddress = wallet.publicKey ? wallet.publicKey.toString() : null;
 
     const [solPrice, setSolPrice] = React.useState(0);
     React.useEffect(() => {
@@ -238,53 +259,43 @@ const WalletMoney = () => {
 								<th className="text-left p-4 text-neutral-400">
 									Status
 								</th>
+                                <th className="text-left p-4 text-neutral-400">
+                                    Transaction Hash
+                                </th>
 							</tr>
 						</thead>
 						<tbody className="divide-y divide-neutral-700/30">
-							<tr className="hover:bg-neutral-700/10">
-								<td className="p-4">Send</td>
-								<td className="p-4">SOL</td>
-								<td className="p-4 text-red-500">-1.5 SOL</td>
-								<td className="p-4">
-									<code className="text-sm">3xk9...8j2m</code>
-								</td>
-								<td className="p-4">2024-02-20 14:30</td>
-								<td className="p-4">
-									<span className="px-2 py-1 bg-green-600/20 text-green-500 rounded-full text-sm">
-										Confirmed
-									</span>
-								</td>
-							</tr>
-							<tr className="hover:bg-neutral-700/10">
-								<td className="p-4">Receive</td>
-								<td className="p-4">USDC</td>
-								<td className="p-4 text-green-500">
-									+500 USDC
-								</td>
-								<td className="p-4">
-									<code className="text-sm">7mn2...4p9q</code>
-								</td>
-								<td className="p-4">2024-02-20 12:15</td>
-								<td className="p-4">
-									<span className="px-2 py-1 bg-green-600/20 text-green-500 rounded-full text-sm">
-										Confirmed
-									</span>
-								</td>
-							</tr>
-							<tr className="hover:bg-neutral-700/10">
-								<td className="p-4">Swap</td>
-								<td className="p-4">RAY → SOL</td>
-								<td className="p-4">100 RAY</td>
-								<td className="p-4">
-									<code className="text-sm">5vb4...2k8l</code>
-								</td>
-								<td className="p-4">2024-02-19 18:45</td>
-								<td className="p-4">
-									<span className="px-2 py-1 bg-green-600/20 text-green-500 rounded-full text-sm">
-										Confirmed
-									</span>
-								</td>
-							</tr>
+							{transactions.map((transaction, index) => (
+								<tr key={index} className="hover:bg-neutral-700/10">
+									<td className="p-4">{transaction.transactionType}</td>
+									<td className="p-4">{transaction.token}</td>
+									<td className={`p-4 ${transaction.transactionType === 'SEND' ? 'text-red-500' : 'text-green-500'}`}>
+										{transaction.transactionType === 'SEND' ? '-' : '+'}{transaction.amount / LAMPORTS_PER_SOL} SOL
+									</td>
+									<td className="p-4">
+										<code className="text-sm">
+											{`${transaction.walletAddress.slice(0,4)}...${transaction.walletAddress.slice(-4)}`}
+										</code>
+									</td>
+									<td className="p-4">
+										{new Date(transaction.createdAt).toLocaleString()}
+									</td>
+									<td className="p-4">
+										<span className={`px-2 py-1 ${
+											transaction.transactionStatus === 'completed' 
+												? 'bg-green-600/20 text-green-500'
+												: 'bg-yellow-600/20 text-yellow-500'
+										} rounded-full text-sm`}>
+											{transaction.transactionStatus === 'completed' ? 'Confirmed' : 'Pending'}
+										</span>
+									</td>
+									<td className="p-4">
+										<code className="text-sm">
+											{`${transaction.transactionHash.slice(0,4)}...${transaction.transactionHash.slice(-4)}`}
+										</code>
+									</td>
+								</tr>
+							))}
 						</tbody>
 					</table>
 				</div>
