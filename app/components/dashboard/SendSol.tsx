@@ -8,6 +8,7 @@ export const SendSol = ({ wallet, connection, handleCloseModal }:any) => {
   const [amount, setAmount] = useState('');
   const [showScanner, setShowScanner] = useState(false);
   const [scannerPaused, setScannerPaused] = useState(false);
+  const serverUrl = process.env.NEXT_PUBLIC_BACKEND_SERVER || "http://localhost:5000";
 
   const handleScan = (detectedCodes:any) => {
     if (!detectedCodes || detectedCodes.length === 0) return;
@@ -89,7 +90,32 @@ export const SendSol = ({ wallet, connection, handleCloseModal }:any) => {
         ...latestBlockhash
       });
       
+      // Send transaction details to server
+      try {
+        const response = await fetch(`${serverUrl}/api/createTransaction`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            walletAddress: recipient,
+            token: 'SOL',
+            amount: parseFloat(amount) * LAMPORTS_PER_SOL,
+            transactionType: 'SEND',
+            transactionStatus: 'completed',
+            transactionHash: signature
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to save transaction details');
+        }
+      } catch (error) {
+        console.error('Error saving transaction details:', error);
+      }
+      
       toast.success('Transaction sent successfully!');
+      
       handleCloseModal();
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
