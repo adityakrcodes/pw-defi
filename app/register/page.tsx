@@ -18,7 +18,7 @@ const RegistrationPage = () => {
 	const [loading, setLoading] = useState(false);
 	const router = useRouter();
     const wallet = useWallet()
-    const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
+    const serverUrl = process.env.NEXT_PUBLIC_BACKEND_SERVER || "http://localhost:5000";
 
     useEffect(() => {
         if (wallet && wallet.publicKey) {
