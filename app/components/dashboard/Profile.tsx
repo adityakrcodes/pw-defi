@@ -85,7 +85,7 @@ const Profile = () => {
 									{firstname} {lastname}
 								</h3>
 								<p className="text-neutral-400">
-									Member since Feb 2024
+									Member since May 2025
 								</p>
 							</div>
 						</div>
@@ -126,9 +126,9 @@ const Profile = () => {
 								</div>
 							</div>
 
-							<div className="border-t border-neutral-700 my-8"></div>
+							{/* <div className="border-t border-neutral-700 my-8"></div> */}
 
-							<div className="space-y-6">
+							{/* <div className="space-y-6">
 								<h4 className="text-lg font-semibold">
 									Change Password
 								</h4>
@@ -161,10 +161,10 @@ const Profile = () => {
 										/>
 									</div>
 								</div>
-							</div>
+							</div> */}
 
-							<div className="border-t border-neutral-700 my-8"></div>
-							<div className="space-y-4">
+							{/* <div className="border-t border-neutral-700 my-8"></div> */}
+							{/* <div className="space-y-4">
 								<h4 className="text-lg font-semibold">
 									Preferences
 								</h4>
@@ -205,7 +205,7 @@ const Profile = () => {
 										</label>
 									</div>
 								</div>
-							</div>
+							</div> */}
 
 							<div className="flex justify-end gap-4">
 								<button
